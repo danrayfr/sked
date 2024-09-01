@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_08_26_130803) do
+ActiveRecord::Schema[8.0].define(version: 2024_08_28_000839) do
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.boolean "active", default: true
+    t.string "uid", null: false
+    t.string "join_code", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["join_code"], name: "index_organizations_on_join_code", unique: true
+    t.index ["name"], name: "index_organizations_on_name", unique: true
+    t.index ["slug"], name: "index_organizations_on_slug", unique: true
+    t.index ["uid"], name: "index_organizations_on_uid", unique: true
+    t.index ["user_id"], name: "index_organizations_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -21,12 +37,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_26_130803) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "name", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
+    t.integer "role", null: false
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["name"], name: "index_users_on_name"
   end
 
+  add_foreign_key "organizations", "users"
   add_foreign_key "sessions", "users"
 end

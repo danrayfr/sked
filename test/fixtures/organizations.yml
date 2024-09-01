@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+R&G:
+  name: R&G
+  slug: r-g
+  active: true
+  uid: 4284629
+  join_code: cs3s-enl1-EKC2
+  user: danray
+
+MySpace:
+  name: MySpace
+  slug: my-space
+  active: true
+  uid: 823535
+  join_code: cs3s-enl1-EKC3
+  user: maria

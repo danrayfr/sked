@@ -1,0 +1,6 @@
+<!-- List registered users in the platform -->
+
+<%= Current.user.id %>
+<%= Current.user.email_address %>
+
+<%= link_to "Profile", user_profile_url(user_id: Current.user.id) %>

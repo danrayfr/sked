@@ -1,0 +1,26 @@
+<% content_for :title, "Create your account" %>
+
+<h1>Users#new</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<%= form_with model: @user do |form| %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, autocomplete: "name", placeholder: "Name", required: true %>
+  </div>
+
+  <div>
+    <%= form.label :email_address %>
+    <%= form.email_field :email_address, autocomplete: "username", placeholder: "Email adddress", required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password, autocomplete: "new-password", placeholder: "Password", required: true, maxlength: 72 %>
+  </div>
+
+  <button type="submit" id="log_in">
+    <span>Sign in</span>
+  </button>
+<% end %>
