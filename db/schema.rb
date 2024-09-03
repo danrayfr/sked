@@ -11,13 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2024_08_28_000839) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
     t.boolean "active", default: true
     t.string "uid", null: false
     t.string "join_code", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["join_code"], name: "index_organizations_on_join_code", unique: true
@@ -28,7 +31,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_08_28_000839) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false

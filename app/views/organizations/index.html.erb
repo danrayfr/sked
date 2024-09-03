@@ -1,0 +1,11 @@
+<h1>Organization#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<%= @organization.name %>
+<%= @organization.slug %>
+<%= @organization.uid %>
+<%= @organization.join_code %>
+
+<%= link_to organization_slug_url(Current.organization), organization_slug_url(Current.organization) unless Current.user.organization.nil? %>
+
+<%= link_to "edit information", edit_organization_url(@organization) unless Current.user.organization.nil? %>

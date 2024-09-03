@@ -1,0 +1,31 @@
+<% content_for(:title) { "Edit organization" } %>
+
+<%= @organization.name %>
+
+<%= form_with model: @organization, class: "" do |form| %>
+  <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "", autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :slug %>
+      <%= form.text_field :slug, class: "", autocomplete: "slug", placeholder: "url", autofocus: true, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :uid %>
+      <%= form.text_field :uid, class: "", autocomplete: "new-password", placeholder: "Password", required: true, maxlength: 72, readonly: true %>
+    </div>
+
+    <div>
+      <%= form.label :join_code %>
+      <%= form.text_field :join_code, class: "", autocomplete: "new-organization", placeholder: "Organization name", required: true, readonly: true %>
+    </div>
+
+    <button type="submit" id="edit_organization" class="">
+      <span>Update Organization</span>
+    </button>
+<% end %>
+
+<%= link_to "Delete", @organization, data: { turbo_method: :delete } %>

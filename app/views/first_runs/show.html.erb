@@ -1,0 +1,31 @@
+<% content_for(:title) { "Set up organization" } %>
+
+<div>
+
+  <%= form_with model: @user, url: first_run_path, class: "" do |form| %>
+
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "", autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
+    </div>
+
+    <div>
+      <%= form.label :email_address %>
+      <%= form.email_field :email_address, class: "", autocomplete: "username", placeholder: "Email address", required: true %>
+    </div>
+
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password, class: "", autocomplete: "new-password", placeholder: "Password", required: true, maxlength: 72 %>
+    </div>
+
+    <div>
+      <%= form.label :organization_name %>
+      <%= form.text_field :organization_name, class: "", autocomplete: "new-organization", placeholder: "Organization name", required: true %>
+    </div>
+
+    <button type="submit" id="log_in" class="">
+      <span>Setup your account</span>
+    </button>
+  <% end %>
+</div>

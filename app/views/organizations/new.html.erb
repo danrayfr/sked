@@ -1,0 +1,12 @@
+<% content_for(:title) { "Create new organization" } %>
+
+<%= form_with model: @organization, class: "" do |form| %>
+  <div>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "", autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
+    </div>
+
+    <button type="submit" id="edit_organization" class="">
+      <span>Create Organization</span>
+    </button>
+<% end %>

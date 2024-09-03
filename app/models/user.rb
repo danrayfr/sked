@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_secure_password validations: false
   has_many :sessions, dependent: :destroy
 
+  has_one :organization, dependent: :destroy
+
   normalizes :email_address, with: -> { _1.strip.downcase }
 
   def current?

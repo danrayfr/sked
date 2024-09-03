@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root "home#index"
+  root "organizations#index"
+
+  resource :first_run, only: %i[show create], path: "setup"
 
   resources :users do
     scope module: "users" do
@@ -12,10 +14,19 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
 
+  resources :organizations, except: %i[ index show ]
+
+  get "/:uid/:slug", to: "organizations#show", constraints: { uid: /\d+/ }, as: :slugged_organization
+
+  # get "/:slug", to: "organizations#show", as: :slugged_organization
+
+  direct :organization_slug do |organization, options|
+    route_for :slugged_organization, organization.uid, organization.slug, options
+  end
+
   get "up", to: "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
-
 end

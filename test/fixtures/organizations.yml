@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-R&G:
+r&g:
   name: R&G
   slug: r-g
   active: true
@@ -8,7 +8,7 @@ R&G:
   join_code: cs3s-enl1-EKC2
   user: danray
 
-MySpace:
+myspace:
   name: MySpace
   slug: my-space
   active: true

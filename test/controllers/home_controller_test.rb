@@ -1,14 +1,9 @@
 require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get root_url
-    assert_response :success
-  end
-
   test "should get dashboard" do
     get dashboard_url
-    assert_redirected_to new_session_url
+    assert_redirected_to new_session_path
 
     password_digest = BCrypt::Password.create("secret123456")
 
@@ -20,9 +15,9 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_match user.email_address, response.body
 
     delete session_url
-    assert_redirected_to new_session_url
+    assert_redirected_to new_session_path
 
     get dashboard_url
-    assert_redirected_to new_session_url
+    assert_redirected_to new_session_path
   end
 end
