@@ -1,0 +1,14 @@
+<% url = join_url(Current.organization.uid, Current.organization.join_code) %>
+
+<% if Current.user.can_manage? %>
+  <div>
+    <strong>Share invite to more people</strong>
+    <span>
+      <input type="text" id="invite_url" value="<%= url %>" readonly>
+    </span>
+  </div>
+
+  <%= button_to organization_join_code_path(Current.organization.uid) do %>
+    <span class="for-screen-reader">Regenerate join link</span>
+  <% end %>
+<% end %>

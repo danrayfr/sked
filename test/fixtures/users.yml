@@ -5,9 +5,25 @@ danray:
   email_address: danray@sked.com
   password_digest: <%= password_digest %>
   role: administrator
+  active: true
 
 maria:
   name: maria
   email_address: maria@sked.com
   password_digest: <%= password_digest %>
   role: administrator
+  active: true
+
+xavier:
+  name: drxavieray
+  email_address: xavier@sked.com
+  password_digest: <%= password_digest %>
+  role: member
+  active: true
+
+xavi:
+  name: xavi
+  email_address: xavi@sked.com
+  password_digest: <%= password_digest %>
+  role: member
+  active: true

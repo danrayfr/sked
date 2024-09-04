@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[ new create ]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { render_rejection :too_many_requests }
 
   def new
   end
@@ -22,5 +22,10 @@ class SessionsController < ApplicationController
   private
     def user_params
       params.permit(:email_address, :password)
+    end
+
+    def render_rejection(status)
+      flash[:alert] = "Too many requests or unauthorized."
+      render :new, status: status
     end
 end

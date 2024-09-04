@@ -3,7 +3,7 @@
 <h1>Users#new</h1>
 <p>Find me in app/views/home/index.html.erb</p>
 
-<%= form_with model: @user do |form| %>
+<%= form_with model: @user, url: join_path(params[:uid], params[:join_code]) do |form| %>
 
   <div>
     <%= form.label :name %>
@@ -24,3 +24,5 @@
     <span>Sign in</span>
   </button>
 <% end %>
+
+<%= @organization.uid %>

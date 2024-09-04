@@ -1,0 +1,6 @@
+<p>
+  <%= user.name %>
+  <%= user.email_address %>
+  <strong><%= user&.administratorship.role.capitalize %></strong>
+  <%= button_to "Deactivate", user, method: :delete %>
+</p>

@@ -14,7 +14,14 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
 
-  resources :organizations, except: %i[ index show ]
+  get "organization/:uid/join/:join_code", to: "users#new", as: :join
+  post "organization/:uid/join/:join_code", to: "users#create"
+
+  resources :organizations, except: %i[ index show ] do
+    scope module: "organizations" do
+      resource :join_code, only: :create
+    end
+  end
 
   get "/:uid/:slug", to: "organizations#show", constraints: { uid: /\d+/ }, as: :slugged_organization
 

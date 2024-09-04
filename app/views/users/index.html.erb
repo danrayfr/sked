@@ -4,3 +4,11 @@
 <%= Current.user.email_address %>
 
 <%= link_to "Profile", user_profile_url(user_id: Current.user.id) %>
+
+<div>
+ <%= render "invite" %>
+</div>
+
+<div>
+ <%= render @users %>
+</div>

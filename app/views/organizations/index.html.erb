@@ -6,6 +6,13 @@
 <%= @organization.uid %>
 <%= @organization.join_code %>
 
+<div>
+  Administratorship: <%= Current.user&.administratorship&.role.capitalize %><br>
+</div>
+</div>
+
 <%= link_to organization_slug_url(Current.organization), organization_slug_url(Current.organization) unless Current.user.organization.nil? %>
 
-<%= link_to "edit information", edit_organization_url(@organization) unless Current.user.organization.nil? %>
+<% if Current.user.can_manage? %>
+  <%= link_to "edit information", edit_organization_url(@organization) %>
+<% end %>

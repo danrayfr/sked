@@ -1,13 +1,14 @@
 class OrganizationsController < ApplicationController
   allow_unauthenticated_access only: :show
 
-  before_action :redirect_to_form_if_no_organization, only: :index
+  before_action :current_organization, only: :index
+  before_action :redirect_to_form_if_no_organization, only: :new
   before_action :find_organization, only: :show
   before_action :set_organization, only: %i[ edit update destroy ]
+  before_action :ensure_can_manage?, only: %i[ edit update destroy ]
   before_action :resume_session
 
   def index
-    @organization = Current.organization
   end
 
   def new
@@ -41,9 +42,7 @@ class OrganizationsController < ApplicationController
 
   private
     def redirect_to_form_if_no_organization
-      @user = Current.user
-
-      redirect_to new_organization_url if @user.organization.nil?
+      redirect_to root_url if Current.organization.present?
     end
 
     def find_organization
@@ -57,5 +56,11 @@ class OrganizationsController < ApplicationController
 
     def organization_params
       params.require(:organization).permit(:name, :slug)
+    end
+
+    def current_organization
+      @organization = Current.organization
+
+      redirect_to new_organization_url if @organization.nil?
     end
 end
