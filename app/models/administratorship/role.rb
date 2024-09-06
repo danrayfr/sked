@@ -6,6 +6,6 @@ module Administratorship::Role
   end
 
   def can_manage?
-    staff? || owner?
+    owner? || staff?
   end
 end

@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_one :administratorship, dependent: :destroy
   has_one :organization, through: :administratorship
 
+  has_many :accesses, dependent: :destroy
+  has_many :patient_records, through: :accesses
+
   normalizes :email_address, with: -> { _1.strip.downcase }
 
   def current?
@@ -16,6 +19,10 @@ class User < ApplicationRecord
 
   def can_manage?
     administratorship.can_manage?
+  end
+
+  def owner?
+    administratorship.owner?
   end
 
   def deactivate

@@ -35,6 +35,8 @@
     <%= form.text_field :procedure, class: "", autocomplete: "procedure", placeholder: "Procedure", autofocus: true, required: true %>
   </div>
 
+  <%= render partial: "patient_records/accesses/access", collection: @users, as: :user, locals: { patient_record: @patient_record, creating_user: nil } %>
+
 
   <button type="submit" id="edit_organization" class="">
     <span>Update record</span>

@@ -3,7 +3,7 @@
 <%= @patient_record.name %>
 
 <%#= link_to "Edit", [ :edit, Current.organization, @patient_record ] %>
-<% if Current.user.can_manage? %>
+<% if Current.user.can_manage? && @patient_record.editable? %>
   <%= link_to "Edit", slugged_edit_organization_patient_record_url(Current.organization.uid, @patient_record) %>
   <%= button_to "Destroy", [ Current.organization, @patient_record ], method: :delete %>
 <% end %>

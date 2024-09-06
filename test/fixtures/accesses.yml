@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first_access:
+  level: editor
+  user: danray
+  patient_record: first_record
+
+second_access:
+  level: reader
+  user: xavier
+  patient_record: second_record

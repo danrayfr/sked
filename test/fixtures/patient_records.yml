@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+first_record:
   name: Jason
   email_address: jason@37signals.com
   date: <%= Date.today %>
   procedure: Consultation
   organization: rg
 
-two:
+second_record:
   name: Michelle
   email_address: michelle@sked.com
   date: <%= Date.today %>

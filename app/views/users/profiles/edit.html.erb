@@ -4,6 +4,8 @@
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
 
 <%= form_with model: @user, url: user_profile_path(@user), method: :patch do |form| %>
+  <%= form.hidden_field :role %>
+
   <%= form.email_field :email_address, class: "input full-width", autocomplete: "username", placeholder: "Email address", required: true %><br>
   <%= form.password_field :password, class: "input full-width", autocomplete: "new-password", placeholder: "Change password", maxlength: 72 %><br>
   <%= form.submit "Save changes" %>
