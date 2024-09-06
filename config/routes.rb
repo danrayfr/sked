@@ -21,9 +21,15 @@ Rails.application.routes.draw do
     scope module: "organizations" do
       resource :join_code, only: :create
     end
+    resources :patient_records, except: %i[ index new show edit ]
   end
 
   get "/:uid/:slug", to: "organizations#show", constraints: { uid: /\d+/ }, as: :slugged_organization
+
+  get "/organization/:uid/patient_records", to: "patient_records#index", constraints: { uid: /\d+/ }, as: :slugged_organization_patient_records
+  get "/organization/:uid/patient_records/new", to: "patient_records#new", constraints: { uid: /\d+/ }, as: :slugged_new_organization_patient_records
+  get "/organization/:uid/patient_records/:id", to: "patient_records#show", constraints: { uid: /\d+/ }, as: :slugged_organization_patient_record
+  get "/organization/:uid/patient_records/:id/edit", to: "patient_records#edit", constraints: { uid: /\d+/ }, as: :slugged_edit_organization_patient_record
 
   # get "/:slug", to: "organizations#show", as: :slugged_organization
 

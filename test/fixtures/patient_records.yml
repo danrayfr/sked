@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Jason
+  email_address: jason@37signals.com
+  date: <%= Date.today %>
+  procedure: Consultation
+  organization: rg
+
+two:
+  name: Michelle
+  email_address: michelle@sked.com
+  date: <%= Date.today %>
+  procedure: Cleaning
+  organization: myspace

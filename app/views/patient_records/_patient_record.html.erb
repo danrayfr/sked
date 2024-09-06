@@ -1,0 +1,9 @@
+<%= cache patient_record do %>
+  <div>
+    <%= patient_record.name %>
+    <%= patient_record.email_address %>
+    <%= time_tag patient_record.date %>
+    <%= patient_record.procedure %>
+    <span><%= link_to "show", slugged_organization_patient_record_url(Current.organization.uid, patient_record) %></span>
+  </div>
+<% end %>

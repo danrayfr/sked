@@ -2,6 +2,7 @@ class Organization < ApplicationRecord
   include Sluggable, Joinable, Findable
 
   belongs_to :user
+  has_many :patient_records, dependent: :destroy
   has_many :administratorships, dependent: :destroy
   has_many :users, through: :administratorships
 

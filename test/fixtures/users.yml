@@ -27,3 +27,10 @@ xavi:
   password_digest: <%= password_digest %>
   role: member
   active: true
+
+david:
+  name: david
+  email_address: david@37signals.com
+  password_digest: <%= password_digest %>
+  role: member
+  active: true

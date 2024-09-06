@@ -1,0 +1,43 @@
+<% content_for(:title) { "New patient record" } %>
+
+<h1>New Patient Records</h1>
+
+<%= form_with model: @patient_record, url: organization_patient_records_path(@organization.uid) do |form| %>
+
+  <% if @patient_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@patient_record.errors.count, "error") %> prohibited this patient record from being saved:</h2>
+      <ul>
+        <% @patient_record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "", autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :email_address %>
+    <%= form.text_field :email_address, class: "", autocomplete: "username", placeholder: "Email address", autofocus: true, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :datetime %>
+    <%= form.datetime_select :date, :ampm => true, :minute_step => 5, class: "", autofocus: true, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :procedure %>
+    <%= form.text_field :procedure, class: "", autocomplete: "procedure", placeholder: "Procedure", autofocus: true, required: true %>
+  </div>
+
+
+  <button type="submit" id="edit_organization" class="">
+    <span>Create record</span>
+  </button>
+
+<% end %>

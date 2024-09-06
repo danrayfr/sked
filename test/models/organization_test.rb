@@ -11,7 +11,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test "slug is generated from the name" do
-    organization = Organization.create!(name: "Chatgenie", user: users(:danray))
+    organization = Organization.create!(name: "Chatgenie", user: users(:david))
     assert_equal "chatgenie", organization.slug
   end
 end

@@ -11,8 +11,12 @@
 </div>
 </div>
 
-<%= link_to organization_slug_url(Current.organization), organization_slug_url(Current.organization) unless Current.user.organization.nil? %>
+<%= link_to "show page", organization_slug_url(Current.organization) unless Current.user.organization.nil? %>
 
 <% if Current.user.can_manage? %>
   <%= link_to "edit information", edit_organization_url(@organization) %>
 <% end %>
+
+<%= link_to "Patient Records", slugged_organization_patient_records_url(Current.organization.uid) %>
+
+<%= link_to "users", users_path %>
