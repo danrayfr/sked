@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   get "/organization/:uid/patient_records/:id", to: "patient_records#show", constraints: { uid: /\d+/ }, as: :slugged_organization_patient_record
   get "/organization/:uid/patient_records/:id/edit", to: "patient_records#edit", constraints: { uid: /\d+/ }, as: :slugged_edit_organization_patient_record
 
+  get "organization/:uid/administratorships", to: "administratorships#index",  constraints: { uid: /\d+/ }, as: :slugged_organization_administratorships
+  get "organization/:uid/administratorships/:id", to: "administratorships#index",  constraints: { uid: /\d+/ }, as: :slugged_organization_administratorship
+  patch "organization/:uid/administratorships/:id", to: "administratorships#update", constraints: { uid: /\d+/ }
+
   # get "/:slug", to: "organizations#show", as: :slugged_organization
 
   direct :organization_slug do |organization, options|

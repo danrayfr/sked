@@ -1,0 +1,17 @@
+<p>haha
+  <%= administratorship.user.name %>
+  <%= administratorship.user.email_address %>
+  <strong><%= administratorship.user&.administratorship.role.capitalize %></strong>
+
+  <%= form_with model: administratorship,
+    url: slugged_organization_administratorship_path(@organization.uid, administratorship.id),
+    data: { controller: "administrator", action: "change->administrator#submitOnChange" }, method: :patch do |form| %>
+  <% disabled = administratorship.user.current? && Current.user.can_manage? %>
+  <%= form.select :role,
+                  options_for_select(Administratorship.roles.keys.map { |role| [role.humanize, role] }, administratorship.role),
+                  {},
+                  disabled: disabled %>
+<% end %>
+
+  <%#= button_to "Deactivate", user_path(user), method: :delete, disabled: ("disabled" if user.current? || !Current.user.can_administer?), data: { turbo_confirm: "Are you sure you want to permanently remove this person from the account? This can’t be undone." } %>
+</p>
