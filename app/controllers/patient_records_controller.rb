@@ -3,12 +3,12 @@ class PatientRecordsController < ApplicationController
 
   before_action :set_organization
   before_action :set_record, only: %i[ show edit update destroy ]
-  # before_action :ensure_can_manage?, only: %i[ edit new edit update destroy ]
+  before_action :ensure_can_manage?, only: %i[ edit new edit update destroy ]
   before_action :ensure_editable, only: %i[ edit update destroy ]
   before_action :set_users, only: %i[ edit ]
 
   def index
-    @patient_records = Current.organization.patient_records.accessable
+    @patient_records = Current.organization.patient_records.accessable.ordered
   end
 
   def show
@@ -19,10 +19,10 @@ class PatientRecordsController < ApplicationController
   end
 
   def create
-    patient_record = @organization.patient_records.build(record_params)
+    @patient_record = @organization.patient_records.build(record_params)
 
-    if patient_record.save
-      update_accesses(patient_record)
+    if @patient_record.save
+      update_accesses(@patient_record)
       redirect_to slugged_organization_patient_records_url(@organization.uid), notice: "Record saved."
     else
       render :new, status: :unprocessable_entity

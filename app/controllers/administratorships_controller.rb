@@ -13,7 +13,7 @@ class AdministratorshipsController < ApplicationController
 
   def update
     @administratorship.update(role_params)
-    redirect_to slugged_organization_administratorships_url(@organization.uid)
+    redirect_to users_path
   end
 
   private

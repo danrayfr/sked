@@ -2,7 +2,8 @@ class OrganizationsController < ApplicationController
   allow_unauthenticated_access only: :show
 
   before_action :current_organization, only: :index
-  before_action :redirect_to_form_if_no_organization, only: :new
+  before_action :check_if_no_organization, only: :new
+  before_action :check_if_patient, only: :index
   before_action :find_organization, only: :show
   before_action :set_organization, only: %i[ edit update destroy ]
   before_action :ensure_can_manage?, only: %i[ edit update destroy ]
@@ -22,6 +23,10 @@ class OrganizationsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
@@ -41,13 +46,14 @@ class OrganizationsController < ApplicationController
   end
 
   private
-    def redirect_to_form_if_no_organization
+    def check_if_no_organization
       redirect_to root_url if Current.organization.present?
     end
 
     def find_organization
-      @organization = Organization.find_by_uid(params[:uid]) ||
-                      Organization.find_by_slug(params[:slug])
+      @organization = Organization.find_by(uid: params[:uid], slug: params[:slug])
+
+      head :not_found if @organization.nil?
     end
 
     def set_organization
@@ -55,7 +61,7 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.require(:organization).permit(:name, :slug)
+      params.require(:organization).permit(:name, :slug, :uid, :join_code)
     end
 
     def current_organization
@@ -63,4 +69,8 @@ class OrganizationsController < ApplicationController
 
       redirect_to new_organization_url if @organization.nil?
     end
+
+    def check_if_patient
+      redirect_to slugged_organization_path(Current.organization.uid, Current.organization.slug) if Current.user&.administratorship.patient?
+  end
 end

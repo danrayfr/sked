@@ -2,11 +2,11 @@ require "test_helper"
 
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    sign_in :danray
     @organization = organizations(:myspace)
   end
 
   test "get user current organization on index" do
+    sign_in :danray
     get root_url
     assert_equal users(:danray).organization, @organization
   end

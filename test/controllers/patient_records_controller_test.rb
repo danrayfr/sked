@@ -10,7 +10,7 @@ class PatientRecordsControllerTest < ActionDispatch::IntegrationTest
     get slugged_organization_patient_records_url(@uid)
 
     assert_response :success
-    assert_select "title", "Patient Records"
+    assert_select "title", "Organization | Patient Records"
     assert_select "h1", text: "Patient Records"
   end
 end

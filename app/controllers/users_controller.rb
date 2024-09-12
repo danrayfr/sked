@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_action :resume_session, only: :new
   before_action :redirect_authenticated?, only: :new
   before_action :set_user, only: %i[ update destroy ]
+  before_action :check_if_patient, only: :index
+  before_action :ensure_can_manage?, only: %i[ index destroy ]
   rate_limit to: 10, within: 1.minute, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later" }
 
   def index
@@ -55,5 +57,9 @@ class UsersController < ApplicationController
     def verify_join_code
       @organization = Organization.find_by(uid: params[:uid])
       head :not_found if @organization.nil? || @organization.join_code != params[:join_code]
+    end
+
+    def check_if_patient
+      redirect_to root_url if Current.user&.administratorship.patient?
     end
 end

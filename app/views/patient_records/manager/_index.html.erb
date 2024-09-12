@@ -1,0 +1,73 @@
+<% content_for(:title) { "Organization | Patient Records" } %>
+
+<%= content_for :aside do %>
+   <%= render "layouts/shared/sidebar" %>
+<% end %>
+
+<%= content_for :header_title do %>
+  <ul class="flex items-center text-sm ml-4">
+    <li class="text-gray-700 mr-2 font-medium text-md">Patient Records</li>
+  </ul>
+<% end %>
+
+<%= content_for :header do %>
+  <%= render "layouts/shared/navbar" %>
+<% end %>
+
+<div class="mx-auto p-6">
+  <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+    <div class="w-full mb-1">
+      <div class="mb-4">
+          <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Patient Records</h1>
+      </div>
+      <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100">
+        <div class="flex items-center mb-4 sm:mb-0">
+            <form class="sm:pr-3" action="#" method="GET">
+                <label for="products-search" class="sr-only">Search</label>
+                <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+                    <input type="text" name="email" id="products-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 cursor-not-allowed" placeholder="Search for patient record (feature coming soon...)" disabled>
+                </div>
+            </form>
+        </div>
+
+        <%= link_to slugged_new_organization_patient_records_url(Current.organization.uid) do %>
+          <button id="createProductButton" class="text-white bg-gigas hover:bg-bluebell focus:ring-4 focus:ring-linkwater font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none " type="button">
+              Add new record
+          </button>
+        <% end if Current.user.can_manage? %>
+      </div>
+  </div>
+</div>
+
+<div class="flex flex-col">
+  <div class="overflow-x-auto">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden shadow">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">
+                Patient Name
+              </th>
+              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">
+                Procedure
+              </th>
+              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">
+                Date of Procedure
+              </th>
+              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">
+                ID
+              </th>
+              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase">
+                <span class="sr-only">actions</span>
+              </th>
+            </tr>
+          </thead>
+
+          <%= render @patient_records %>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

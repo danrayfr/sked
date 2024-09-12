@@ -1,45 +1,107 @@
-<% content_for(:title) { "Edit patient record" } %>
+<% content_for(:title) { "Organization | #{@organization.name}" } %>
 
-<h1>Edit Patient Records</h1>
+<%= content_for :aside do %>
+   <%= render "layouts/shared/sidebar" %>
+<% end %>
 
-<%= form_with model: @patient_record, url: [ Current.organization, @patient_record ] do |form| %>
+<%= content_for :header_title do %>
+  <ul class="flex items-center text-sm ml-4">
+    <li class="text-gray-700 mr-2 font-medium text-md">Patient Records</li>
+  </ul>
+<% end %>
 
-  <% if @patient_record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@patient_record.errors.count, "error") %> prohibited this patient record from being saved:</h2>
-      <ul>
-        <% @patient_record.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%= content_for :header do %>
+  <%= render "layouts/shared/navbar" %>
+<% end %>
+
+<div class="mx-auto p-6">
+  <div class="mb-4 col-span-full xl:mb-2">
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+        <li class="inline-flex items-center">
+          <%= link_to slugged_organization_patient_records_url, class: "inline-flex items-center text-gray-700 hover:text-indigo-600" do %>
+          <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+          </svg>
+          Patient Records
+          <% end %>
+        </li>
+        <li>
+          <div class="flex items-center">
+          <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="ml-1 text-gray-700 md:ml-2" aria-current="page"><%= @patient_record.name %></span>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+          <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">Edit</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+<div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6">
+
+
+
+  <h3 class="mb-4 text-xl font-medium">Edit patient record</h3>
+  <p class="mt-1 text-sm leading-6 text-gray-600 mb-2">This information will be displayed publicly so be careful what you share.</p>
+
+  <%= form_with model: @patient_record, url: [ Current.organization, @patient_record ] do |form| %>
+
+    <%= render "shared/error_messages", object: @patient_record %>
+
+    <div class="grid grid-cols-6 gap-6 mt-4">
+
+      <div class="col-span-6">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+        <%= form.text_field :name, id: "name", autocomplete: "name", placeholder: "Patient name", class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" %>
+      </div>
+
+      <div class="col-span-6">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Email address</label>
+        <%= form.text_field :email_address, id: "name", autocomplete: "name", placeholder: "Patient email address", class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" %>
+      </div>
+
+      <div class="col-span-6">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Procedure</label>
+        <%= form.text_field :procedure, class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" %>
+      </div>
+
+      <div class="col-span-6">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Date of procedure</label>
+        <%= form.datetime_select :date, { :ampm => true, :minute_step => 5 }, class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500", required: true %>
+      </div>
+
+      <div class="col-span-6">
+        <div class="p-4 mb-4 bg-white border-dashed border-2 border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6">
+        <div class="flow-root">
+          <h3 class="text-xl font-semibold mb-4">User/Patient accesses</h3>
+          <ul class="mb-6 divide-y divide-gray-200">
+            <%= render partial: "patient_records/accesses/access", collection: @users, as: :user, locals: { patient_record: @patient_record, creating_user: nil } %>
+          </ul>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-span-6 md:col-full">
+        <button
+          class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          type="submit"
+          id="edit_record"
+        >
+          Update record
+        </button>
+        <%= link_to "Cancel", slugged_organization_patient_records_url, class: "text-sm font-semibold leading-6 text-gray-700 ml-2" %>
+      </div>
     </div>
   <% end %>
+</div>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "", autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :email_address %>
-    <%= form.text_field :email_address, class: "", autocomplete: "username", placeholder: "Email address", autofocus: true, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :datetime %>
-    <%= form.datetime_select :date, :ampm => true, :minute_step => 5, class: "", autofocus: true, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :procedure %>
-    <%= form.text_field :procedure, class: "", autocomplete: "procedure", placeholder: "Procedure", autofocus: true, required: true %>
-  </div>
-
-  <%= render partial: "patient_records/accesses/access", collection: @users, as: :user, locals: { patient_record: @patient_record, creating_user: nil } %>
-
-
-  <button type="submit" id="edit_organization" class="">
-    <span>Update record</span>
-  </button>
-
-<% end %>
+</div>

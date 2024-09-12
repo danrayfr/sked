@@ -1,8 +1,5 @@
-<% content_for(:title) { "Patient Records" } %>
-
-<h1>Patient Records</h1>
-
-<%#= link_to "new", [:new, Current.organization, :patient_record] %>
-<%= link_to "new", slugged_new_organization_patient_records_url(Current.organization.uid) if Current.user.can_manage? %>
-
-<%= render @patient_records %>
+<% if Current.user.can_manage? %>
+  <%= render "patient_records/manager/index" %>
+<% else %>
+  <%= render "patient_records/patient/index" %>
+<% end %>

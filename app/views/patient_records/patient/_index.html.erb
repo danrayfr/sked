@@ -1,0 +1,5 @@
+<% content_for(:title) { "Patient history" } %>
+
+<% Current.user.patient_records.each do |patient_record| %>
+  <%= render "patient_record", patient_record: patient_record %>
+<% end %>

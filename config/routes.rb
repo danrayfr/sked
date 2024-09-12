@@ -24,8 +24,12 @@ Rails.application.routes.draw do
     resources :patient_records, except: %i[ index new show edit ]
   end
 
+  # !Current.user.can_manage? routes
+  # get "/:uid/:slug", to: "organizations#show", constraints: { uid: /\d+/ }, as: :slugged_organization
   get "/:uid/:slug", to: "organizations#show", constraints: { uid: /\d+/ }, as: :slugged_organization
+  # get "/:slug/patient_records", to: "patient_records#index", as: :slugged_organization_patient_patient_record
 
+  # Current.user.can_manage? routes
   get "/organization/:uid/patient_records", to: "patient_records#index", constraints: { uid: /\d+/ }, as: :slugged_organization_patient_records
   get "/organization/:uid/patient_records/new", to: "patient_records#new", constraints: { uid: /\d+/ }, as: :slugged_new_organization_patient_records
   get "/organization/:uid/patient_records/:id", to: "patient_records#show", constraints: { uid: /\d+/ }, as: :slugged_organization_patient_record
@@ -37,9 +41,9 @@ Rails.application.routes.draw do
 
   # get "/:slug", to: "organizations#show", as: :slugged_organization
 
-  direct :organization_slug do |organization, options|
-    route_for :slugged_organization, organization.uid, organization.slug, options
-  end
+  # direct :organization_slug do |organization, options|
+  #   route_for :slugged_organization, organization.uid, organization.slug, options
+  # end
 
   get "up", to: "rails/health#show", as: :rails_health_check
 

@@ -1,26 +1,40 @@
-<div class="flex align-center gap txt-medium--responsive" data-controller="dependent-checkbox">
-  <span class="flex align-center gap-half">
-    <% if user.can_manage? %>
-      <%#= image_tag "crown.svg", size: 18, aria: { hidden: "true" }, class: "colorize--black" %>
-    <% end %>
-    <span class="overflow-ellipsis txt-medium--responsive"><%= user.name %></span>
-  </span>
-  <hr class="flex-item-grow margin-none" aria-hidden="true" style="--border-style: dashed">
+<li class="py-4">
+  <div class="flex justify-between xl:block 2xl:flex align-center 2xl:space-x-2">
+    <div class="flex space-x-4 xl:mb-4 2xl:mb-0">
+      <div>
+        <img class="w-6 h-6 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green.png" alt="Bonnie image" />
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-base font-semibold text-gray-900 leading-none truncate mb-0.5 inline-flex space-x-2">
+          <%= user.name %>
+          <% if user.can_manage? %>
+            <%= image_tag "crown.svg", aria: { hidden: "true" }, class: "w-6 h-6 ml-3 text-apricot" %>
+          <% end %>
+        </p>
+        <p class="mb-1 text-sm font-normal truncate text-indigo-700">
+          <%= user&.administratorship.role.capitalize %>
+        </p>
+        <p class="text-xs font-medium text-gray-500">
+          <%= user.email_address %>
+        </p>
+      </div>
+    </div>
+    <div class="inline-flex items-center w-auto xl:w-full 2xl:w-auto">
+      <fieldset class="flex align-center gap borderless unpad margin-none">
+        <label class="btn btn--small flex-item-no-shrink">
+          <%= check_box_tag "editor_ids[]", user.id, patient_record.editable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? && Current.user.can_administer? || user.owner?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependant" }, aria: { label: "Role: Writer" } %>
+          <%#= image_tag "write.svg", size: 24, aria: { hidden: "true" } %>
+          Editor
+          <span class="for-screen-reader"></span>
+        </label>
 
-  <fieldset class="flex align-center gap borderless unpad margin-none">
-    <legend class="for-screen-reader"><%= user.name %></legend>
-    <label class="btn btn--small flex-item-no-shrink">
-      <%= check_box_tag "editor_ids[]", user.id, patient_record.editable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer? || user.owner?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependant" }, aria: { label: "Role: Writer" } %>
-      <%#= image_tag "write.svg", size: 24, aria: { hidden: "true" } %>
-      Editor
-      <span class="for-screen-reader"></span>
-    </label>
-
-    <label class="btn btn--small flex-item-no-shrink book-access__reader">
-      <%= check_box_tag "reader_ids[]", user.id, patient_record.accessable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer? || user.owner?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependee" }, aria: { label: "Role: Reader" } %>
-      Reader
-      <%#= image_tag "eye.svg", size: 24, aria: { hidden: "true" } %>
-      <span class="for-screen-reader"></span>
-    </label>
-  </fieldset>
-</div>
+        <label class="btn btn--small flex-item-no-shrink book-access__reader">
+          <%= check_box_tag "reader_ids[]", user.id, patient_record.accessable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? && Current.user.can_administer? || user.owner?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependee" }, aria: { label: "Role: Reader" } %>
+          Reader
+          <%#= image_tag "eye.svg", size: 24, aria: { hidden: "true" } %>
+          <span class="for-screen-reader"></span>
+        </label>
+      </fieldset>
+    </div>
+  </div>
+</li>

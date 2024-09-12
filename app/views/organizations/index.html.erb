@@ -1,24 +1,51 @@
-<h1>Organization#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% content_for(:title) { "Organization | #{@organization.name}" } %>
 
-<%= @organization.name %>
-<%= @organization.slug %>
-<%= @organization.uid %>
-<%= @organization.join_code %>
-
-<div>
-  Administratorship: <%= Current.user&.administratorship&.role.capitalize %><br>
-</div>
-</div>
-
-<%= link_to "show page", organization_slug_url(Current.organization) unless Current.user.organization.nil? %>
-
-<% if Current.user.can_manage? %>
-  <%= link_to "edit information", edit_organization_url(@organization) %>
+<%= content_for :aside do %>
+   <%= render "layouts/shared/sidebar" %>
 <% end %>
 
-<%= link_to "Patient Records", slugged_organization_patient_records_url(Current.organization.uid) %>
+<%= content_for :header_title do %>
+  <ul class="flex items-center text-sm ml-4">
+    <li class="mr-2">
+      <a class="text-gray-600 font-medium text-md">Dashboard</a>
+    </li>
+  </ul>
+<% end %>
 
-<%= link_to "administratorship", slugged_organization_administratorships_url(Current.organization.uid) %>
+<%= content_for :header do %>
+  <%= render "layouts/shared/navbar" %>
+<% end %>
 
-<%= link_to "users", users_path %>
+<div class="mx-auto p-6">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+      <div class="flex justify-between mb-6">
+        <div>
+          <div class="text-2xl font-semibold mb-1"><%= Current.organization.patient_records.count %></div>
+          <div class="text-sm font-medium text-gray-400">Patient Records</div>
+        </div>
+      </div>
+      <%= link_to "View records", slugged_organization_patient_records_url(Current.organization.uid), class: "text-apricot font-medium text-sm" %>
+    </div>
+
+    <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+      <div class="flex justify-between mb-6">
+        <div>
+          <div class="text-2xl font-semibold mb-1"><%= Current.organization.users.count %></div>
+          <div class="text-sm font-medium text-gray-400">Total Patients</div>
+        </div>
+      </div>
+      <%= link_to "View patients", slugged_organization_patient_records_url(Current.organization.uid), class: "text-bluebell font-medium text-sm" %>
+    </div>
+  </div>
+
+</div>
+
+<div class="mx-auto p-12">
+  <%= link_to "Show page", slugged_organization_url(Current.organization.uid, Current.organization.slug) unless Current.user.organization.nil? %>
+
+  <% if Current.user.can_manage? %>
+    <%= link_to "Edit organization", edit_organization_url(@organization) %>
+  <% end %>
+</div>
