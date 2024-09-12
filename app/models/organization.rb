@@ -5,6 +5,7 @@ class Organization < ApplicationRecord
   has_many :patient_records, dependent: :destroy
   has_many :administratorships, dependent: :destroy
   has_many :users, through: :administratorships
+  has_many :services, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

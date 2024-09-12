@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+myspace_braces:
+  name: braces
+  description: Dental Aesthetic
+  cost: 3000
+  organization: myspace
+
+myspace_extraction:
+  name: Tooth extraction
+  description: MyText
+  cost: 2999
+  organization: myspace
+
+rg_braces:
+  name: Braces
+  description: Dental Aesthetic
+  cost: 3000
+  organization: rg
+
+rg_extraction:
+  name: Tooth extraction
+  description: MyText
+  cost: 2999
+  organization: rg
