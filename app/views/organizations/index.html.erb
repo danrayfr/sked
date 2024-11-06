@@ -26,7 +26,7 @@
           <div class="text-sm font-medium text-gray-400">Patient Records</div>
         </div>
       </div>
-      <%= link_to "View records", slugged_organization_patient_records_url(Current.organization.uid), class: "text-apricot font-medium text-sm" %>
+      <%= link_to "View records", organization_patient_records_path(Current.organization.uid), class: "text-apricot font-medium text-sm" %>
     </div>
 
     <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
@@ -36,16 +36,16 @@
           <div class="text-sm font-medium text-gray-400">Total Patients</div>
         </div>
       </div>
-      <%= link_to "View patients", slugged_organization_patient_records_url(Current.organization.uid), class: "text-bluebell font-medium text-sm" %>
+      <%= link_to "View patients", organization_patient_records_path(Current.organization.uid), class: "text-bluebell font-medium text-sm" %>
     </div>
   </div>
 
 </div>
 
 <div class="mx-auto p-12">
-  <%= link_to "Show page", slugged_organization_url(Current.organization.uid, Current.organization.slug) unless Current.user.organization.nil? %>
+  <%= link_to "Show page", slugged_organization_url(Current.organization.slug) unless Current.user.organization.nil? %>
 
   <% if Current.user.can_manage? %>
-    <%= link_to "Edit organization", edit_organization_url(@organization) %>
+    <%= link_to "Edit organization", edit_organization_url(@organization.uid) %>
   <% end %>
 </div>

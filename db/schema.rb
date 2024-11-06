@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2024_09_12_024141) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
-
   create_table "accesses", force: :cascade do |t|
     t.string "level", null: false
     t.integer "user_id", null: false
@@ -27,8 +24,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_12_024141) do
 
   create_table "administratorships", force: :cascade do |t|
     t.integer "role"
-    t.bigint "user_id", null: false
-    t.bigint "organization_id", null: false
+    t.integer "user_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_administratorships_on_organization_id"
@@ -41,7 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_12_024141) do
     t.boolean "active", default: true
     t.string "uid", null: false
     t.string "join_code", null: false
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["join_code"], name: "index_organizations_on_join_code", unique: true
@@ -56,16 +53,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_12_024141) do
     t.string "email_address", null: false
     t.datetime "date", null: false
     t.string "procedure"
-    t.bigint "organization_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_patient_records_on_organization_id"
   end
 
   create_table "services", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.float "cost"
+    t.decimal "cost", precision: 10, scale: 2, null: false
     t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -73,7 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_12_024141) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false

@@ -2,8 +2,8 @@ class OrganizationsController < ApplicationController
   allow_unauthenticated_access only: :show
 
   before_action :current_organization, only: :index
-  before_action :check_if_no_organization, only: :new
   before_action :check_if_patient, only: :index
+  before_action :check_if_no_organization, only: :new
   before_action :find_organization, only: :show
   before_action :set_organization, only: %i[ edit update destroy ]
   before_action :ensure_can_manage?, only: %i[ edit update destroy ]
@@ -51,13 +51,13 @@ class OrganizationsController < ApplicationController
     end
 
     def find_organization
-      @organization = Organization.find_by(uid: params[:uid], slug: params[:slug])
+      @organization = Organization.find_by(slug: params[:slug])
 
       head :not_found if @organization.nil?
     end
 
     def set_organization
-      @organization = Organization.find(params[:id])
+      @organization = Organization.find_by(uid: params[:uid])
     end
 
     def organization_params

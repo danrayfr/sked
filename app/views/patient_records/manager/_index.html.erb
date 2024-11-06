@@ -30,7 +30,7 @@
             </form>
         </div>
 
-        <%= link_to slugged_new_organization_patient_records_url(Current.organization.uid) do %>
+        <%= link_to new_organization_patient_record_path(Current.organization.uid) do %>
           <button id="createProductButton" class="text-white bg-gigas hover:bg-bluebell focus:ring-4 focus:ring-linkwater font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none " type="button">
               Add new record
           </button>

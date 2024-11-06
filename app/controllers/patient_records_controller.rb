@@ -23,7 +23,7 @@ class PatientRecordsController < ApplicationController
 
     if @patient_record.save
       update_accesses(@patient_record)
-      redirect_to slugged_organization_patient_records_url(@organization.uid), notice: "Record saved."
+      redirect_to organization_patient_records_path(@organization.uid), notice: "Record saved."
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class PatientRecordsController < ApplicationController
   def update
     if @patient_record.update(record_params)
       update_accesses(@patient_record)
-      redirect_to slugged_organization_patient_record_url(@organization.uid, @patient_record), notice: "Record updated."
+      redirect_to organization_patient_record_path(@organization.uid, @patient_record), notice: "Record updated."
     else
       render :edit, status: :unprocessable_entity
     end
