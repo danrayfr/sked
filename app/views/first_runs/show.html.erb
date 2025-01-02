@@ -1,3 +1,7 @@
+<div>
+  <%= content_for :title, "Setup your organization" %>
+</div>
+
 <% content_for(:title) { "Setup your organization" } %>
 
 <% content_for :head do %>
@@ -8,7 +12,7 @@
   <%= tag.meta property: "og:url", content: root_url %>
 
   <%= tag.meta property: "twitter:title", content: "Setup your account and organization" %>
-  <%= tag.meta property: "twitter:description", content: "Signing in to the dentasked"%>
+  <%= tag.meta property: "twitter:description", content: "Signing in to the Sked"%>
   <%= tag.meta property: "twitter:image", content: asset_url("denta.png") %>
   <%= tag.meta property: "twitter:card", content: "summary_large_image" %>
 <% end %>
@@ -17,7 +21,7 @@
   <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
     <%= link_to "", class: "flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10" do %>
       <%= image_tag "denta.png", class: "mr-4 h-11" %>
-      <span>DentaSked</span>
+      <span>Sked</span>
     <% end %>
     <!-- Card -->
     <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow">
@@ -52,7 +56,6 @@
         </button>
         <div class="text-sm font-medium text-gray-500">Already have an account?
         <%= link_to "Login here", new_session_path, class: "text-indigo-700 hover:underline" %></div>
-
       <% end %>
     </div>
   </div>
