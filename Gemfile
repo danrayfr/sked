@@ -30,7 +30,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "image_processing", "~> 1.2"
 gem "thruster", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
-gem "tailwindcss-rails", "~> 2.7"
+gem "tailwindcss-rails", "~> 3.1"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
